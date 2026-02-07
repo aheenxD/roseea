@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You My Love🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #1a002b, #000);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  color: white;
+}
+
+/* STAR BACKGROUND */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/stars.png");
+  opacity: 0.4;
+  z-index: -2;
+}
+
+/* MAIN CARD */
+.container {
+  position: relative;
+  max-width: 520px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 45px;
+  border-radius: 35px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 30px 80px rgba(255,0,120,0.35);
+  text-align: center;
+  animation: floatIn 2s ease;
+}
+
+/* GIANT ROSE */
+.big-rose {
+  font-size: 7.5rem;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 25px #ff4d8d);
+  animation: glowPulse 3s infinite;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+
+#message {
+  font-size: 1.25rem;
+  line-height: 2;
+  min-height: 260px;
+  padding: 15px;
+}
+
+/* BUTTON */
+button {
+  margin-top: 30px;
+  padding: 14px 40px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.05rem;
+  background: linear-gradient(135deg, #ff4d8d, #ff8fab);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px #ff4d8d;
+}
+
+/* FINAL REVEAL */
+#final {
+  display: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  margin-top: 30px;
+  color: #ff6fae;
+  text-shadow: 0 0 30px #ff4d8d;
+  animation: reveal 2s ease;
+}
+
+/* FALLING ROSES */
+.rose {
+  position: absolute;
+  top: -10%;
+  animation: fall linear infinite;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(255,100,150,0.7));
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh) rotate(360deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(-50%); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/2t6z1k.mp3" type="audio/mpeg">
+</audio>
+
+<div class="stars"></div>
+
+<div class="container">
+  <div class="big-rose">🌹</div>
+  <h1>Happy Rose Day</h1>
+  <div id="message"></div>
+  <button onclick="start()">Read what my heart says</button>
+  <div id="final">I LOVE YOU ❤️</div>
+</div>
+
+<script>
+const text = `I love you so much , here a virtual 
+rose for you until i can you a real one.
+You're the rose in my life which never fades never withers 
+Your're a garden of Roses in my Life , you're prettier than
+any rose on this planet , thank you so much for everthing pari 🌹`;
+
+let i = 0;
+
+function start() {
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.4;     // soft piano
+  music.play();           // 🎹 start music
+
+  document.querySelector("button").style.display = "none";
+
+  const interval = setInterval(() => {
+    document.getElementById("message").innerHTML += text.charAt(i);
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById("final").style.display = "block";
+      }, 1200);
+    }
+  }, 35);
+}
+
+/* ROSE RAIN */
+const roses = ["🌹","🌺","💐","🥀","🌸"];
+
+for (let j = 0; j < 60; j++) {
+  let r = document.createElement("div");
+  r.className = "rose";
+  r.innerHTML = roses[Math.floor(Math.random() * roses.length)];
+  r.style.left = Math.random() * 100 + "vw";
+  r.style.fontSize = (20 + Math.random() * 30) + "px";
+  r.style.animationDuration = (6 + Math.random() * 8) + "s";
+  r.style.animationDelay = Math.random() * 6 + "s";
+  document.body.appendChild(r);
+}
+</script>
+
+</body>
+</html>
